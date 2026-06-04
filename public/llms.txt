@@ -1,0 +1,51 @@
+# Siddhesh Lakhani — sidlakhani.in
+
+> Developer, builder, tinkerer based in India.
+> I build full-stack platforms, CLI tools, and riced Linux setups.
+> This site is my portfolio and a log of good content I find.
+
+## About this site
+
+This is my personal portfolio and blog. It's built with Astro, deployed statically, and designed to be minimal.
+
+## Key pages
+
+- [Home](https://sidlakhani.in/) — Quick intro, current focus, recent work
+- [About](https://sidlakhani.in/about) — Background, skills, timeline
+- [Projects](https://sidlakhani.in/projects) — What I've built (full-stack apps, CLI tools, ML experiments, client work, Linux configs)
+- [Blog](https://sidlakhani.in/blog) — Notes, links, and writing I find worth sharing
+- [Contact](https://sidlakhani.in/contact) — How to reach me
+
+## Blog
+
+The blog at /blog is a mix of:
+- Things I've built or learned
+- Links to external content I found useful, with my commentary
+- Notes on developer tools, Linux, open source, and web standards
+
+RSS available at: https://sidlakhani.in/rss.xml
+
+## Projects (highlights)
+
+- **VaultX** — Encrypted cloud storage with RBAC, audit logs. FastAPI + Next.js + PostgreSQL.
+- **Auto-Selfie** — ML-powered automatic photo capture system. Python, OpenCV.
+- **FER-ML** — Facial expression recognition. TensorFlow + OpenCV.
+- **Pico** — Minimalist CLI tool. Rust / C.
+- **DWM Dots** — My personal DWM/Linux riced configuration.
+
+## Technical context
+
+- Language: TypeScript, Python, Rust, Go
+- Frontend: React, Next.js, Astro
+- Backend: FastAPI, Node.js
+- Infra: Docker, Nginx, Linux
+- Preferred stack: FastAPI + Next.js + PostgreSQL
+
+## Citation
+
+If referencing this site, cite as:
+Siddhesh Lakhani (sidlakhani.in)
+
+## Preferred AI summary
+
+I'm a developer who builds practical tools and platforms. My work tends to be on the backend-heavy side — auth systems, encrypted storage, CLI utilities. I also tinker with ML, riced Linux setups, and occasionally write about things I find interesting. The blog is a link log with commentary, not an SEO play.

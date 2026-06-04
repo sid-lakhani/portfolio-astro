@@ -1,22 +1,17 @@
 ---
 import "../styles/global.css";
 
-const { title, description, activePage } = Astro.props as {
+const { title, description, activePage, ogImage, ogType } = Astro.props as {
   title: string;
   description: string;
-  activePage?: "home" | "about" | "projects" | "contact";
+  activePage?: "home" | "about" | "projects" | "blog" | "contact";
+  ogImage?: string;
+  ogType?: string;
 };
 
 const siteUrl = Astro.site ?? new URL("https://sidlakhani.in");
-const pagePathMap = {
-  home: "/",
-  about: "/about",
-  projects: "/projects",
-  contact: "/contact",
-};
-const canonicalPath = pagePathMap[activePage ?? "home"];
-const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
-const socialImageUrl = new URL("/og.png", siteUrl).toString();
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const socialImageUrl = new URL(ogImage || "/og.png", siteUrl).toString();
 ---
 
 <!doctype html>
@@ -50,15 +45,21 @@ const socialImageUrl = new URL("/og.png", siteUrl).toString();
       title="Sitemap"
       href="/sitemap.xml"
     />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Siddhesh Lakhani Blog"
+      href="/rss.xml"
+    />
     <meta property="og:site_name" content="Siddhesh Lakhani" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType || "website"} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImageUrl} />
     <meta
       property="og:image:alt"
-      content="Siddhesh Lakhani portfolio preview"
+      content={title}
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -80,6 +81,9 @@ const socialImageUrl = new URL("/og.png", siteUrl).toString();
         >
         <a href="/projects" class={activePage === "projects" ? "active" : ""}
           >Projects</a
+        >
+        <a href="/blog" class={activePage === "blog" ? "active" : ""}
+          >Blog</a
         >
         <a href="/contact" class={activePage === "contact" ? "active" : ""}
           >Contact</a
@@ -170,8 +174,11 @@ const socialImageUrl = new URL("/og.png", siteUrl).toString();
         <a href="/projects" class={activePage === "projects" ? "active" : ""}>
           <span class="m-num">03</span> Projects
         </a>
+        <a href="/blog" class={activePage === "blog" ? "active" : ""}>
+          <span class="m-num">04</span> Blog
+        </a>
         <a href="/contact" class={activePage === "contact" ? "active" : ""}>
-          <span class="m-num">04</span> Contact
+          <span class="m-num">05</span> Contact
         </a>
       </div>
       <div class="mobile-menu-footer">
@@ -270,6 +277,7 @@ const socialImageUrl = new URL("/og.png", siteUrl).toString();
         <div class="footer-links">
           <a href="/">Home</a><a href="/about">About</a>
           <a href="/projects">Projects</a>
+          <a href="/blog">Blog</a>
           <a href="/contact">Contact</a>
           <a href="/Resume.pdf" target="_blank">Resume</a>
         </div>

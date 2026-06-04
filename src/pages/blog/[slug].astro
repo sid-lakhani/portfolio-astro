@@ -1,0 +1,341 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blogs");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+---
+
+<BaseLayout
+  title={`${post.data.title} — Siddhesh Lakhani`}
+  description={post.data.description}
+  activePage="blog"
+  ogImage={post.data.cover}
+  ogType="article"
+>
+  <slot name="head" slot="head">
+    <meta property="article:published_time" content={post.data.date} />
+    <meta property="article:author" content="Siddhesh Lakhani" />
+    {post.data.tags.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+    <link rel="alternate" type="application/rss+xml" title="Siddhesh Lakhani Blog" href="/rss.xml" />
+  </slot>
+
+  <div class="page-wrap">
+    <div class="post-page-wrap">
+      <!-- BACK LINK -->
+      <a href="/blog" class="back-link">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5" /><path d="M12 5l-7 7 7 7" />
+        </svg>
+        Back to Blog
+      </a>
+
+      <!-- POST HEADER -->
+      <header class="post-header">
+        <div class="post-header-meta">
+          <time class="post-header-date" datetime={post.data.date}>
+            {formatDate(post.data.date)}
+          </time>
+          {post.data.featured && (
+            <span class="post-featured-badge">Featured</span>
+          )}
+        </div>
+
+        <h1 class="post-header-title">{post.data.title}</h1>
+        <p class="post-header-desc">{post.data.description}</p>
+
+        <div class="post-header-tags">
+          {post.data.tags.map((tag) => (
+            <span class="proj-tag">{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      {post.data.cover && (
+        <div class="post-cover-wrap">
+          <img src={post.data.cover} alt={post.data.title} class="post-cover-img" />
+        </div>
+      )}
+
+      <div class="post-divider"></div>
+
+      <!-- POST CONTENT -->
+      <article class="post-content">
+        <Content />
+      </article>
+
+      <div class="post-divider"></div>
+
+      <!-- FOOTER NAV -->
+      <div class="post-footer-nav">
+        <a href="/blog" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 12H5" /><path d="M12 5l-7 7 7 7" />
+          </svg>
+          All Posts
+        </a>
+        <a href="/rss.xml" class="rss-link">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+            <path
+              d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"
+            ></path>
+          </svg>
+          RSS Feed
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-page-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 120px 24px 96px;
+  }
+
+  /* BACK LINK */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    margin-bottom: 48px;
+  }
+  .back-link:hover {
+    color: var(--off);
+  }
+  .back-link svg {
+    flex-shrink: 0;
+  }
+
+  /* POST HEADER */
+  .post-header {
+    margin-bottom: 36px;
+  }
+  .post-header-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .post-header-date {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .post-featured-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: var(--red-faint);
+    border: 1px solid var(--red-border);
+    padding: 2px 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .post-header-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .proj-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--red);
+    background: rgba(255, 59, 59, 0.08);
+    padding: 3px 9px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 59, 59, 0.15);
+  }
+
+  /* COVER IMAGE */
+  .post-cover-wrap {
+    width: 100%;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .post-cover-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* DIVIDER */
+  .post-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* POST CONTENT */
+  .post-content {
+    color: var(--off2);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .post-content :global(h1),
+  .post-content :global(h2),
+  .post-content :global(h3),
+  .post-content :global(h4) {
+    font-family: "Syne", sans-serif;
+    font-weight: 700;
+    color: var(--off);
+    margin-top: 40px;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .post-content :global(h2) {
+    font-size: 24px;
+  }
+  .post-content :global(h3) {
+    font-size: 19px;
+  }
+  .post-content :global(p) {
+    margin-bottom: 20px;
+  }
+  .post-content :global(a) {
+    color: var(--red);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .post-content :global(a:hover) {
+    color: var(--off);
+  }
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 20px;
+  }
+  .post-content :global(li) {
+    margin-bottom: 8px;
+  }
+  .post-content :global(code) {
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 13px;
+    background: var(--char3);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--red);
+  }
+  .post-content :global(pre) {
+    background: var(--char2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+  .post-content :global(pre code) {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--off2);
+    font-size: 13px;
+  }
+  .post-content :global(blockquote) {
+    border-left: 2px solid var(--red);
+    padding-left: 20px;
+    margin: 24px 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .post-content :global(strong) {
+    color: var(--off);
+    font-weight: 700;
+  }
+  .post-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* FOOTER NAV */
+  .post-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .rss-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--red);
+    text-decoration: none;
+    border: 1px solid var(--red-border);
+    padding: 5px 12px;
+    border-radius: 5px;
+    background: var(--red-faint);
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .rss-link:hover {
+    background: rgba(255, 59, 59, 0.14);
+    border-color: var(--red);
+  }
+
+  @media (max-width: 700px) {
+    .post-page-wrap {
+      padding: 100px 20px 80px;
+    }
+    .back-link {
+      margin-bottom: 32px;
+    }
+  }
+</style>
