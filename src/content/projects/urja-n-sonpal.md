@@ -3,7 +3,7 @@ title: Urja N Sonpal
 slug: urja-n-sonpal
 category: client
 year: 2025
-featured: true
+featured: false
 tags: [Next.js, NodeJS, PostgreSQL, Nginx, PocketBase]
 cover: projects/urjansonpal.png
 live: https://urjansonpal.com
