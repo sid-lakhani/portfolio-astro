@@ -65,6 +65,27 @@ const socialImageUrl = new URL(ogImage || "/og.png", siteUrl).toString();
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "Siddhesh Lakhani",
+          "url": siteUrl.toString(),
+          "description": description
+        },
+        {
+          "@type": "Person",
+          "name": "Siddhesh Lakhani",
+          "url": siteUrl.toString(),
+          "sameAs": [
+            "https://github.com/sid-lakhani",
+            "https://linkedin.com/in/siddhesh-lakhani",
+            "https://instagram.com/sidlakhani_"
+          ]
+        }
+      ]
+    })} />
     <slot name="head" />
     <script
       defer

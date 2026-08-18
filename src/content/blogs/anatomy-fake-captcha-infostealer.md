@@ -5,7 +5,7 @@ description: "How a colleague nearly fell for a ClickFix social engineering atta
 date: "2026-06-04"
 tags: ["malware-analysis", "powershell", "cybersecurity", "social-engineering"]
 cover: "/images/blogs/malware.png"
-featured: true
+featured: false
 ---
 
 A colleague of mine was trying to access a download link when they hit a page that blocked them with a standard-looking "Verify you are human" CAPTCHA.
