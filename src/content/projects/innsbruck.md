@@ -6,7 +6,6 @@ year: 2026
 featured: true
 tags: [Next.js, Vercel, Sanity, Shopify, Framer, Tailwind]
 live: https://innsbruckhq.com
-cover: projects/innsbruck.jpg
 description: Smart home automation platform unifying lighting, climate, security, shading, and energy into an intuitive spatial experience.
 order: 1
 ---

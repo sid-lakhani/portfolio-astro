@@ -5,7 +5,6 @@ category: client
 year: 2025
 featured: false
 tags: [Next.js, NodeJS, PostgreSQL, Nginx, PocketBase]
-cover: projects/urjansonpal.png
 live: https://urjansonpal.com
 ratio: tall
 description: E-Commerce website built for a brand, self-hosted on a VPS with Nginx and PocketBase as CMS. Built with Next.js, NodeJS, PostgreSQL.

@@ -2,11 +2,22 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { mediaUrl } from "../lib/media";
+import { fetchOgImage } from "../lib/og";
 
 const allProjects = await getCollection("projects");
 const projects = allProjects.sort(
   (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
 );
+
+// Fetch OG images for client projects
+const ogImages = new Map<string, string>();
+for (const project of projects) {
+  if (project.data.category === "client" && !project.data.cover && project.data.live) {
+    const ogImg = await fetchOgImage(project.data.live);
+    if (ogImg) ogImages.set(project.id, ogImg);
+  }
+}
+
 
 const categoryMeta = {
   fullstack: { label: "Full-Stack", pattern: "pat-security" },
@@ -70,6 +81,8 @@ const categoryMeta = {
             const hasExternalLink = Boolean(
               project.data.live ?? project.data.github,
             );
+            const fallbackCover = ogImages.get(project.id);
+            const coverImage = project.data.cover ? mediaUrl(project.data.cover) : fallbackCover;
 
             return (
               <div class="masonry-item" data-cat={project.data.category}>
@@ -79,12 +92,12 @@ const categoryMeta = {
                   target={hasExternalLink ? "_blank" : undefined}
                   rel={hasExternalLink ? "noreferrer" : undefined}
                 >
-                  {project.data.cover && (
+                  {coverImage && (
                     <div
                       class={`proj-card-img ${shapeClass} ${meta.pattern}`.trim()}
                     >
                       <img
-                        src={mediaUrl(project.data.cover)}
+                        src={coverImage}
                         alt={project.data.title}
                         loading="lazy"
                         style="width: 100%; height: 100%; object-fit: cover; display: block;"
