@@ -7,8 +7,8 @@ featured: false
 tags: [Next.js, NodeJS, PostgreSQL, Nginx, PocketBase]
 live: https://urjansonpal.com
 ratio: tall
-description: E-Commerce website built for a brand, self-hosted on a VPS with Nginx and PocketBase as CMS. Built with Next.js, NodeJS, PostgreSQL.
+description: Premium e-commerce experience designed for effortless shopping and seamless product discovery. Optimized for speed and high conversion.
 order: 7
 ---
 
-E-Commerce website built for a brand client. Self-hosted on a Vultr VPS with Nginx as reverse proxy and PocketBase as the CMS layer. Built with Next.js on the frontend and NodeJS + PostgreSQL on the backend.
+A tailored e-commerce platform crafted to elevate the brand's digital presence. Features a high-performance storefront with intuitive navigation, empowering customers to seamlessly discover and purchase products, while providing the client with robust inventory management.

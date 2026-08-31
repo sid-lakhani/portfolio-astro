@@ -7,8 +7,8 @@ featured: false
 tags: [Next.js, Strapi, Nginx, VPS]
 live: https://labeljuilakhani.in
 ratio: tall
-description: Luxury fashion brand showcase website built for a client, self-hosted on VPS with Nginx and Strapi CMS.
+description: Elegant digital showcase for a luxury fashion brand. Combines immersive visual storytelling with a fluid user experience to highlight premium collections.
 order: 4
 ---
 
-Luxury fashion brand website built for a client. Self-hosted on a VPS with Nginx as reverse proxy and Strapi as the CMS so the client can manage content independently.
+A sophisticated brand showcase designed to capture the essence of luxury fashion. Features high-fidelity imagery, smooth interactions, and an intuitive content architecture that allows the client to effortlessly update collections and editorial content.
