@@ -4,10 +4,10 @@ slug: innsbruck
 category: client
 year: 2026
 featured: true
-tags: [Next.js, Vercel, Sanity, Framer, Tailwind]
+tags: [Next.js, Vercel, Sanity, Shopify, Framer, Tailwind]
 live: https://innsbruckhq.com
-description: Architectural smart home interface bridging the gap between complex building systems and intuitive spatial control.
+description: Architectural smart home interface and digital storefront. Unifies complex building systems with intuitive spatial control.
 order: 1
 ---
 
-A unified smart home control platform that transforms complex building systems—lighting, climate, security, and energy—into an elegant, accessible interface. Features dynamic scene management and precise spatial controls designed for premium residential environments.
+A unified smart home platform that transforms complex building systems into an elegant interface. Features dynamic scene management, precise spatial controls, and a high-conversion digital storefront for premium hardware.
