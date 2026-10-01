@@ -6,6 +6,7 @@ year: 2025
 featured: false
 tags: [Next.js, Strapi, Nginx, VPS]
 live: https://labeljuilakhani.in
+cover: projects/labeljuilakhani.png
 ratio: tall
 description: Elegant digital showcase for a luxury fashion brand. Combines immersive visual storytelling with a fluid user experience to highlight premium collections.
 order: 4
