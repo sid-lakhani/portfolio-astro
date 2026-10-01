@@ -1,7 +1,7 @@
 ---
 title: ERML
 slug: erml
-category: oss
+category: oss, ml
 year: 2026
 featured: true
 tags: [Python, TensorFlow, OpenCV, ONNX, PyPI]

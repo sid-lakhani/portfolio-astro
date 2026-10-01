@@ -1,12 +1,17 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const CategoryEnum = z.enum(['fullstack', 'cli', 'ml', 'client', 'os', 'oss']);
+
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
 	schema: z.object({
 		title: z.string(),
 		slug: z.string(),
-		category: z.enum(['fullstack', 'cli', 'ml', 'client', 'os']),
+		category: z.preprocess(
+			(val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val,
+			z.array(CategoryEnum)
+		),
 		year: z.number(),
 		featured: z.boolean().default(false),
 		tags: z.array(z.string()),

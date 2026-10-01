@@ -12,7 +12,7 @@ const projects = allProjects.sort(
 // Fetch OG images for client projects
 const ogImages = new Map<string, string>();
 for (const project of projects) {
-  if (project.data.category === "client" && !project.data.cover && project.data.live) {
+  if (project.data.category.includes("client") && !project.data.cover && project.data.live) {
     const ogImg = await fetchOgImage(project.data.live);
     if (ogImg) ogImages.set(project.id, ogImg);
   }
@@ -25,6 +25,7 @@ const categoryMeta = {
   ml: { label: "ML / CV", pattern: "pat-ml" },
   client: { label: "Client Work", pattern: "pat-web" },
   os: { label: "Linux / OS", pattern: "pat-os" },
+  oss: { label: "Open Source", pattern: "pat-security" },
 } as const;
 
 // Ratio class mapping removed - now handled via frontmatter
@@ -69,13 +70,17 @@ const categoryMeta = {
       <button class="filter-btn" onclick="filterCards('os',this)"
         >Linux / OS</button
       >
+      <button class="filter-btn" onclick="filterCards('oss',this)"
+        >Open Source</button
+      >
     </div>
 
     <div class="masonry-wrap">
       <div class="masonry" id="masonry">
         {
           projects.map((project) => {
-            const meta = categoryMeta[project.data.category];
+            const primaryCategory = project.data.category[0];
+            const meta = categoryMeta[primaryCategory];
             const shapeClass = project.data.ratio ?? "";
             const href = project.data.live ?? project.data.github ?? "#";
             const hasExternalLink = Boolean(
@@ -85,7 +90,7 @@ const categoryMeta = {
             const coverImage = project.data.cover ? mediaUrl(project.data.cover) : fallbackCover;
 
             return (
-              <div class="masonry-item" data-cat={project.data.category}>
+              <div class="masonry-item" data-cat={project.data.category.join(",")}>
                 <a
                   class="proj-card"
                   href={href}
@@ -530,8 +535,8 @@ const categoryMeta = {
       .forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     document.querySelectorAll(".masonry-item").forEach((item) => {
-      const cats = item.dataset.cat || "";
-      if (cat === "all" || cats === cat) {
+      const cats = item.dataset.cat ? item.dataset.cat.split(",") : [];
+      if (cat === "all" || cats.includes(cat)) {
         item.style.display = "block";
       } else {
         item.style.display = "none";
