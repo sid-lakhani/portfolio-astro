@@ -3,7 +3,7 @@ title: Crest IQX Global
 slug: crest-iqx-global
 category: client
 year: 2026
-featured: true
+featured: false
 tags: [Astro, Tailwind CSS, Cloudflare Pages, Google App Script]
 live: https://crestiqx.com
 description: Enterprise B2B platform delivering sourcing, supply chain, BPO, and staffing solutions across UAE & UK hubs with cross-border operational rigour.
