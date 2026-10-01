@@ -91,12 +91,14 @@ const categoryMeta = {
 
             return (
               <div class="masonry-item" data-cat={project.data.category.join(",")}>
-                <a
-                  class="proj-card"
-                  href={href}
-                  target={hasExternalLink ? "_blank" : undefined}
-                  rel={hasExternalLink ? "noreferrer" : undefined}
-                >
+                <div class="proj-card">
+                  <a
+                    class="proj-card-link-overlay"
+                    href={href}
+                    target={hasExternalLink ? "_blank" : undefined}
+                    rel={hasExternalLink ? "noreferrer" : undefined}
+                    aria-label={`View ${project.data.title}`}
+                  ></a>
                   {coverImage && (
                     <div
                       class={`proj-card-img ${shapeClass} ${meta.pattern}`.trim()}
@@ -129,14 +131,14 @@ const categoryMeta = {
                     </div>
                     <div class="proj-links">
                       {project.data.github && (
-                        <span class="proj-link gh">GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                        <a href={project.data.github} target="_blank" rel="noreferrer" class="proj-link gh">GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
                       )}
                       {project.data.live && (
-                        <span class="proj-link live">Live <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                        <a href={project.data.live} target="_blank" rel="noreferrer" class="proj-link live">Live <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
                       )}
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
             );
           })
@@ -240,11 +242,14 @@ const categoryMeta = {
     transition:
       border-color 0.25s,
       transform 0.25s;
-    cursor: pointer;
     position: relative;
-    text-decoration: none;
     color: inherit;
     display: block;
+  }
+  .proj-card-link-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
   .proj-card:hover {
     border-color: var(--red-border);
@@ -342,6 +347,8 @@ const categoryMeta = {
   .proj-links {
     display: flex;
     gap: 10px;
+    position: relative;
+    z-index: 2;
   }
   .proj-link {
     font-size: 11px;
